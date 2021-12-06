@@ -8,6 +8,16 @@ body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     background-image: url(https://i.picsum.photos/id/115/1500/1000.jpg?hmac=PMXoKzYeiUr1yKbfihqGHtqnlsmR_OvIofWF0MxvQRQ);
     background-size: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
 }
 
 .wrap {
@@ -17,13 +27,13 @@ body {
     color:aliceblue;
 }
 
-.wrap header {
+.wrap section {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-header input {
+section input {
     width: 100%;
     max-width: 280px;
     padding: 10px 15px;
@@ -34,7 +44,7 @@ header input {
     transition: 0.2s ease-out;
 }
 
-header input:focus {
+section input:focus {
     background-color: rgba(255, 255, 255, 0.6);
 }
 
@@ -64,3 +74,7 @@ main {
     justify-content: center;
     align-items: center;
 }
+
+/* .forecast {
+
+} */

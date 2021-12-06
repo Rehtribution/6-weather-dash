@@ -15,38 +15,56 @@
 
 <body>
     <div class="wrap">
-        <header>
-            <input type="text" autocomplete="off" class="search-box" placeholder="Search for a location..."/>
-        </header>
+        <h1>WEATHER DASH</h1>
+        <!-- search-box -->
+        <section>
+            <input type="text" autocomplete="off" class="search-box" placeholder="Search for a location..." />
+        </section>
+
+        <!-- recent-searches -->
+        <div class="recent-searches text-center">
+            <!-- display set # privious searches here -->
+            <div id="search-history"></div>
+            <!-- clear history button -->
+            <button class="btn btn-primary mb-5" type="button" id="clear-searches" onClick="clearSearches()">Clear Search History</button>
+        </div>
+
+        <!-- main content -->
         <main>
             <section class="location">
-                <span id="city" class="city-name align-middle">City, State</span>
-                <div id="date">Today 00 Month Year</div>
+                <div id="city" class="city-name align-middle">City, State</div>
+                <div id="date"></div>
             </section>
+            <!-- current weather -->
             <div class="current">
                 <div id="temp">0<span>°F</span></div>
-                <div id="weather">sunny</div> 
-                <!--insert icon for designated weather -->
+                <div id="weather">sunny</div>
+                <!--insert icon for designated weather here-->
+                
+                <!-- additional current weather conditions -->
                 <div id="conditions" class="row">
                     <div id="wind">6MPH</div>
                     <div id="humidity">46%</div>
-                    <div id="UV-I">0.47</div><!--change color depending on severity-->
+                    <div id="UV-I">0.47</div>
+                    <!--change color depending on severity-->
                 </div>
             </div>
-            <section class="5-day">
+            <!-- display 5-day forcast in card format, dynamically? -->
+            <section class="forecast">
                 <h3>5-Day Forecast</h3>
-                <div class="card-row"></div>
+                <div id="five-day-container" class="container"></div>
             </section>
         </main>
     </div>
 
-
+<!-- script links -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
     <script src='assets/js/script.js'></script>
 
 </body>
