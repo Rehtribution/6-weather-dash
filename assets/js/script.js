@@ -9,6 +9,8 @@ const api = {
 // Enter keycode value
 const ENTER_KEY_CODE = 13;
 
+//creating the search history from the search input
+//want to clear the searchbox contents after keypress
 var recentSearchHistory
 const searchbox = document.querySelector('.search-box');
 searchbox.addEventListener('keypress', setQuery);
@@ -21,6 +23,7 @@ function setQuery(event) {
     }
 }
 
+//gets the current weather info from the api 
 function getResults(query) {
     fetch(`${api.base}weather?q=${query}&APPID=${api.key}&units=imperial`)
         .then(weather => {
@@ -28,6 +31,7 @@ function getResults(query) {
         }).then(displayResults);
 }
 
+//dispays the weather info after grabbing from the api
 function displayResults(weather) {
     console.log(weather);
     let lat = weather.coord.lat
@@ -39,8 +43,10 @@ function displayResults(weather) {
     city.innerHTML = `${weather.name}, ${weather.sys.country}`;
 }
 
+//5 day forecast
 const fiveDayContainer = document.getElementById("five-day-container")
 function getFiveDay(lat, lon) {
+    fiveDayContainer.innerHTML=""
     fetch(`${api.base2}lat=${lat}&lon=${lon}&APPID=${api.key}&units=imperial`)
     .then(res => res.json())
     .then((data) => {
@@ -57,11 +63,13 @@ function getFiveDay(lat, lon) {
 
             let fiveDayTemp = document.createElement('p')
             fiveDayTemp.textContent = 'Temp: ' + data.daily[i].temp.day + '°F'
+            // add Math.round to round temps
             card.append(fiveDayTemp)
         }
     })
 }
 
+//using moment to get the date
 var date = document.querySelector('#date');
 date.textContent = moment().format('dddd MMMM, YYYY');
 
@@ -77,13 +85,22 @@ function saveRecentSearches(city) {
 }
 getSearches()
 
-function getSearches() {
-    recentSearchHistory = JSON.parse(localStorage.getItem("recentSearches"))
-    if( recentSearchHistory === null) {
-        // add text conent to search-history saying no history
-    } else {
-        // clear that searc history
-        // loop through recentSearchHistory then create a button in the loop and for each button add recentSearchHistory[i]
+
+//display prior searches in the recent-searches div
+//want to dispay 2 rows of 5 in button/box style
+function getSearches(){
+    var data = JSON.parse(localStorage.getItem("recentSearches"));
+    if(data===null){
+        document.getElementById("search-history").innerHTML = ("No Recent Searches")
+    } else{
+        document.getElementById("search-history").innerHTML = JSON.parse(localStorage.getItem("recentSearches"));
+    
+        data=JSON.parse(localStorage.getItem("recentSearches"));
+        for(i=0; i<5; i++){
+            addToList(data[i]);
+        }
+        city=data[i-1];
+        getResults(city);
     }
 }
 

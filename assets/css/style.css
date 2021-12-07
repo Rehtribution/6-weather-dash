@@ -24,10 +24,10 @@ h1 {
     display: flex;
     flex-direction: column;
     min-height: auto;
-    color:aliceblue;
+    color:rgb(255, 0, 0);
 }
 
-.wrap section {
+.wrap {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,6 +75,3 @@ main {
     align-items: center;
 }
 
-/* .forecast {
-
-} */
