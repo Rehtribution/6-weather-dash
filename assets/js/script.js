@@ -1,3 +1,7 @@
+//using moment to get the date
+var date = document.querySelector('#date');
+date.textContent = moment().format('dddd Do, MMMM YYYY');
+
 // API key and base url
 const api = {
     key: 'ca1b3a53179479f039643e324297790d',
@@ -7,16 +11,6 @@ const api = {
 // Enter keycode value
 const ENTER_KEY_CODE = 13;
 
-// eliminates duplicate cities in the search history
-// not working 
-// function find(c) {
-//     for (var i = 0; i < recentSearches.length; i++) {
-//         if (c === recentSearches[i]) {
-//             return -1;
-//         }
-//     }
-//     return 1;
-// }
 
 //creating the search history from the search input
 //want to clear the searchbox contents after keypress
@@ -24,14 +18,13 @@ var recentSearchHistory
 const searchbox = document.querySelector('.search-box');
 searchbox.addEventListener('keypress', setQuery);
 
-
 //grabs the keycody value previously set, runs getresults then saves values to local storage and clears the input
 function setQuery(event) {
     if (event.keyCode == ENTER_KEY_CODE) {
         getResults(searchbox.value);
-
         saveRecentSearches(searchbox.value);
         searchbox.value = '';
+        clearCards();
     }
 }
 
@@ -51,6 +44,7 @@ function displayResults(weather) {
     var city = document.querySelector('#city');
     var temp = document.querySelector('#temp');
     // condition icon goes here >
+
     var wind = document.querySelector('#wind');
     var humidity = document.querySelector('#humidity');
     var uvi = document.querySelector('#UV-I');
@@ -58,19 +52,18 @@ function displayResults(weather) {
     city.innerHTML = `${weather.name}, ${weather.sys.country}`;
     wind.innerHTML = `${(weather.main.wind)}<span>MPH</span>`;
     // wind showing as undefined nan 
+
     humidity.innerHTML = `${(weather.main.humidity)}<span>%</span>`;
     uvi.innerHTML = `${(weather.main.uvi)}`;
     // uvi showing as undefined nan 
 }
 
-//5 day forecast
+//5 day forecast grabs from base2 and displays dynamically creating cards in a card-deck
 const fiveDayContainer = document.getElementById("five-day-container")
 function getFiveDay(lat, lon) {
-    fiveDayContainer.innerHTML = ""
     fetch(`${api.base2}lat=${lat}&lon=${lon}&APPID=${api.key}&units=imperial`)
         .then(res => res.json())
         .then((data) => {
-            // document.getElementById('UV-I').textContent = data.current.uvi
             for (let i = 0; i < 5; i++) {
                 let card = document.createElement('div')
                 card.setAttribute('class', 'card')
@@ -100,29 +93,29 @@ function getFiveDay(lat, lon) {
         })
 }
 
-//using moment to get the date
-var date = document.querySelector('#date');
-date.textContent = moment().format('dddd Do, MMMM YYYY');
-
 //save searches to local storage
 function saveRecentSearches(city) {
     recentSearchHistory = localStorage.getItem("recentSearches") ?
-        JSON.parse(localStorage.getItem("recentSearches")) :
-        [];
+        JSON.parse(localStorage.getItem("recentSearches")) : [];
     recentSearchHistory.push(city)
+
+    // keeps array at length of 5 
+    if (recentSearchHistory.length > 5) {
+        recentSearchHistory.shift();
+    }
     localStorage.setItem("recentSearches", JSON.stringify(recentSearchHistory))
+    clearBtns()
     getSearches()
 }
+
 getSearches()
 
 
-//display prior searches in the recent-searches div
-//want to dispay 5
+//display prior searches in the recent-searches div as buttons
 function getSearches() {
     var data = JSON.parse(localStorage.getItem("recentSearches"));
     if (data === null) {
         document.getElementById("search-history").innerHTML = ("No Recent Searches");
-
     } else {
         data = JSON.parse(localStorage.getItem("recentSearches"));
         for (i = 0; i < data.length; i++) {
@@ -132,7 +125,6 @@ function getSearches() {
             btn.className = "btn";
             btn.attributes = ""
         }
-        getResults(data[data.length - 1]);
     }
 }
 
@@ -146,13 +138,26 @@ function PastSearch(e) {
 }
 
 
-//clear history function
+//clear history button function
 function clearSearches() {
     if (confirm("Are you sure you want to clear all searches?")) {
         window.localStorage.clear();
     } else { }
     location.reload();
 }
+
+// function is called in the saverecentsearches, clears button array to replace with new searches 
+function clearBtns() {
+    const recentBtns = document.querySelector("#search-history");
+    recentBtns.innerHTML = ""
+}
+
+// called in setQuery function to clear past search card data 
+function clearCards() {
+    const previousCards = document.querySelector("#five-day-container");
+    previousCards.innerHTML = ""
+}
+
 
 // onload () {
 //     load last city searched if any

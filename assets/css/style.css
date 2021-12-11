@@ -10,16 +10,14 @@
     --third: rgb(206, 212, 218);
     --fourth: rgb(233, 236, 239);
     --fifth: rgb(242, 233, 228);
-    --sixth: rgb(248, 249, 250)
+    --sixth: rgb(248, 249, 250);
 }
 /* global styling end  */
 
 
 body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    /* background-image: url(https://i.picsum.photos/id/115/1500/1000.jpg?hmac=PMXoKzYeiUr1yKbfihqGHtqnlsmR_OvIofWF0MxvQRQ); */
     background-color: var(--third);
-    /* background-size: stretch; */
     display: flex;
     flex-direction: column;
     align-items: center;
