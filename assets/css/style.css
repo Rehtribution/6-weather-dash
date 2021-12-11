@@ -29,12 +29,21 @@ body {
 
 
 /* WEATHER DASH title */
+header {
+    border: 2px solid black;
+    border-radius: 16px 0px 16px 0px;
+    box-shadow: 5px 10px;
+    margin-bottom: 5px;
+    background-color: var(--fourth);
+}
+
 h1 {
     text-shadow: 4px 4px 5px var(--sixth);
 }
 
 /* searchbar settings */
 section input {
+    margin-top: 5px;
     width: 100%;
     max-width: 280px;
     padding: 10px 15px;
@@ -49,6 +58,22 @@ section input:focus {
     background-color: var(--fourth);
 }
 /* searchbar settings end  */
+
+
+/* recent searched city buttons */
+/* need work  */
+.btn {
+    margin: 1em;
+    padding: 2px;
+    height: 45px;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+ /* city btn end */
 
 /* clear button settings start */
 .button {
@@ -70,6 +95,11 @@ section input:focus {
     transform: translateY(-7px);
 }
 /* button settings end  */
+
+/* date */
+#date {
+    border-radius: 45px;
+}
 
 /* main content start */
 main {
@@ -100,12 +130,22 @@ main {
 }
 
 .forecast {
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 16px 0px 16px 0px;
+    box-shadow: 5px 10px;
+    text-shadow: 4px 4px 5px var(--sixth);
+}
+
+.card {
     border: 2px solid black;
     border-radius: 16px 0px 16px 0px;
     box-shadow: 5px 10px;
     text-shadow: 4px 4px 5px var(--sixth);
 }
 /* main content end */
+
+
 
 footer {
     border-top: 3px solid black;
