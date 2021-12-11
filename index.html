@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href='assets/css/style.css'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+        crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href='assets/css/style.css'>
 
     <title>Weather Dashboard</title>
 </head>
@@ -20,25 +21,33 @@
         </header>
         <!-- search-box -->
         <section>
-            <input type="text" autocomplete="off" class="search-box" placeholder="Search for a location..." />
+            <input type="text" autocomplete="off" class="search-box" placeholder="Search for a city..." />
         </section>
 
         <!-- recent-searches -->
-        <div class="recent-searches text-center">
+        <div class="cities text-center">
+            <!-- 5 most recent searches will populate here as buttons -->
             <!-- display set # privious searches here -->
-            <div id="search-history">
+            <div class="btn-group" id="search-history">
             </div>
-            <!-- clear history button -->
-            <button class="btn btn-primary mb-5" type="button" id="clear-searches" onClick="clearSearches()">Clear
-                Search History</button>
         </div>
+
+        <!-- clear history button -->
+        <button class="button" id="clear-searches" onClick="clearSearches()">Clear
+            Search History</button>
+
+        <!-- date -->
+        <date class="">
+            <div class="h2 p-3 m-md-5 bg-dark text-white" id="date"></div>
+        </date>
 
         <!-- main content -->
         <main>
+            <!-- location  -->
             <section class="location">
                 <div id="city" class="city-name align-middle">City, State</div>
-                <div id="date"></div>
             </section>
+
             <!-- current weather -->
             <div class="current">
                 <div id="temp"><span>°F</span></div>
@@ -47,24 +56,33 @@
 
                 <!-- additional current weather conditions -->
                 <div id="conditions" class="row">
-                    <div id="wind"></div>
+                    <div id="wind">MPH</div>
                     <div id="humidity">%</div>
-                    <div id="UV-I"></div>
+                    <div id="UV-I">UV</div>
                     <!--change color depending on severity-->
                 </div>
             </div>
-            <!-- display 5-day forcast in card format, dynamically? -->
+
+            <!-- 5-day forcast in card format -->
             <section class="forecast">
                 <h3>5-Day Forecast</h3>
-                <div id="five-day-container" class="card-deck""></div>
+                <div id="five-day-container" class="card-deck"></div>
             </section>
         </main>
+
+        <!--footer-->
+        <footer class="boarder-top boarder-dark">
+            <h5>WEATHER DASH</h5><a href="README.md">ReadMe</a>
+            &copy; 2021 Rehtribution
+        </footer>
+
     </div>
 
     <!-- script links -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src=" https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        crossorigin="anonymous">
+        </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>

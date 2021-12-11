@@ -1,5 +1,3 @@
-
-
 // API key and base url
 const api = {
     key: 'ca1b3a53179479f039643e324297790d',
@@ -9,17 +7,30 @@ const api = {
 // Enter keycode value
 const ENTER_KEY_CODE = 13;
 
+// eliminates duplicate cities in the search history
+function find(c){
+    for (var i = 0; i < recentSearches.length; i++) {
+        if(c === recentSearches[i]) {
+            return -1;
+        }
+    }
+    return 1;
+}
+
 //creating the search history from the search input
 //want to clear the searchbox contents after keypress
 var recentSearchHistory
 const searchbox = document.querySelector('.search-box');
 searchbox.addEventListener('keypress', setQuery);
 
-//grabs the keycody value previously set
+
+//grabs the keycody value previously set, runs getresults then saves values to local storage and clears the input
 function setQuery(event) {
     if (event.keyCode == ENTER_KEY_CODE) {
         getResults(searchbox.value);
-        saveRecentSearches(searchbox.value)
+        
+        saveRecentSearches(searchbox.value);
+        searchbox.value = '';
     }
 }
 
@@ -33,7 +44,6 @@ function getResults(query) {
 
 //dispays the weather info after grabbing from the api
 function displayResults(weather) {
-    console.log(weather);
     let lat = weather.coord.lat
     let lon = weather.coord.lon
     getFiveDay(lat, lon)
@@ -71,7 +81,7 @@ function getFiveDay(lat, lon) {
 
 //using moment to get the date
 var date = document.querySelector('#date');
-date.textContent = moment().format('dddd MMMM, YYYY');
+date.textContent = moment().format('dddd Do, MMMM YYYY');
 
 //save searches to local storage
 function saveRecentSearches(city) {
@@ -80,7 +90,6 @@ function saveRecentSearches(city) {
         [];
     recentSearchHistory.push(city)
     localStorage.setItem("recentSearches", JSON.stringify(recentSearchHistory))
-    console.log(recentSearchHistory)
     getSearches()
 }
 getSearches()
@@ -96,11 +105,14 @@ function getSearches(){
         document.getElementById("search-history").innerHTML = JSON.parse(localStorage.getItem("recentSearches"));
     
         data=JSON.parse(localStorage.getItem("recentSearches"));
-        for(i=0; i<5; i++){
-            addToList(data[i]);
+        for(i=0; i < data.length ; i++){
+            // addToList(data[i]);
+            var btn = document.createElement("button")
+            btn.textContent = data[i]
+            document.querySelector(".cities .btn-group").appendChild(btn)
+            console.log(data[i])
         }
-        city=data[i-1];
-        getResults(city);
+        getResults(data[data.length-1]);
     }
 }
 
