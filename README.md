@@ -20,6 +20,7 @@ This is the sixth Challenge homework assignment and will meet the acceptance cri
 
 ## Screenshot/Gif
 
+![recording](https://user-images.githubusercontent.com/92597876/145707065-ded87ce7-55e9-466d-869c-bd2168fd647c.gif)
 
 ## deployed link
 - 
