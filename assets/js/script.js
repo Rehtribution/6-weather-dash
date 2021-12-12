@@ -18,6 +18,7 @@ var recentSearchHistory
 const searchbox = document.querySelector('.search-box');
 searchbox.addEventListener('keypress', setQuery);
 
+
 //grabs the keycody value previously set, runs getresults then saves values to local storage and clears the input
 function setQuery(event) {
     if (event.keyCode == ENTER_KEY_CODE) {
@@ -43,18 +44,17 @@ function displayResults(weather) {
     getFiveDay(lat, lon)
     var city = document.querySelector('#city');
     var temp = document.querySelector('#temp');
-    // condition icon goes here >
-
-    var wind = document.querySelector('#wind');
+    var weatherIcon = document.querySelector('#weatherIcon');
+    var windS = document.querySelector('#wind');
     var humidity = document.querySelector('#humidity');
     var uvi = document.querySelector('#UV-I');
-    temp.innerHTML = `${Math.round(weather.main.temp)}<span>°F</span>`;
     city.innerHTML = `${weather.name}, ${weather.sys.country}`;
-    wind.innerHTML = `${(weather.main.wind)}<span>MPH</span>`;
-    // wind showing as undefined nan 
+    temp.innerHTML = `${Math.round(weather.main.temp)}<span>°F</span>`;
+    // weatherIcon
 
+    windS.innerHTML = `${Math.round(weather.wind.speed)}<span>mph</span>`;
     humidity.innerHTML = `${(weather.main.humidity)}<span>%</span>`;
-    uvi.innerHTML = `${(weather.main.uvi)}`;
+    uvi.innerHTML = `${(weather.main.uvi)}<span>#</span>`;
     // uvi showing as undefined nan 
 }
 
@@ -79,11 +79,14 @@ function getFiveDay(lat, lon) {
                 card.append(fiveDayTemp)
 
                 // condition icon goes here >
+                var weatherIcon = document.createElement('img');
+                card.append(weatherIcon);
 
-                // let fiveDayWind = document.createElement('p')
-                // fiveDayWind.textContent = 'Wind: ' + data.daily[i].wind.day + 'MPH'
-                // card.append(fiveDayWind)
+                // let fiveDayWindS = document.createElement('p')
+                // fiveDayWindS.textContent = 'Wind: ' + weather.daily[i].wind.speed + 'mph'
+                // card.append(fiveDayWindS);
                 // showing as undefined nan / cannot read 'day'
+                // windS.innerHTML = `${Math.round(weather.wind.speed)}<span>mph</span>`;
 
                 let fiveDayHumid = document.createElement('p')
                 fiveDayHumid.innerHTML = 'Humidity: ' + data.daily[i].humidity.day + '%'
@@ -92,6 +95,7 @@ function getFiveDay(lat, lon) {
             }
         })
 }
+
 
 //save searches to local storage
 function saveRecentSearches(city) {
@@ -123,19 +127,27 @@ function getSearches() {
             btn.textContent = data[i]
             document.querySelector(".cities .btn-group").appendChild(btn)
             btn.className = "btn";
-            btn.attributes = ""
+            btn.attributes = "";
         }
     }
 }
 
-// click past search button. not working needs work 
-function PastSearch(e) {
-    var btn = e.target;
-    if (e.target.matches("button")) {
-        query = btn.textContent.trim();
-        getResults(query);
-    }
-}
+// this will search for the prior cities when btn is clicked. when I get it working. 
+// when clicked getting a key error or when multiple cities it is selecting whole btn-group not just individuals 
+// const btn = document.querySelector('.btn-group');
+// btn.addEventListener('click', pCity);
+
+// function pCity(event) {
+//     console.log("here")
+//     var button = event.target;
+//     if (event.target.matches("button")){
+//         city = button.textContent.trim();
+//         console.log(btn.textContent)
+//         getResults()
+//     }
+//     }
+
+
 
 
 //clear history button function
@@ -158,12 +170,4 @@ function clearCards() {
     previousCards.innerHTML = ""
 }
 
-
-// onload () {
-//     load last city searched if any
-// }
-
-// example of error function
-// function error() {
-//     $('#current-location').text('Cannot get your current location.');
-//   }
+//need an error handler

@@ -5,7 +5,6 @@
 
 This is the sixth Challenge homework assignment and will meet the acceptance criteria listed below:
 
-- GIVEN I need a new, secure password
 - GIVEN a weather dashboard with form inputs
 - WHEN I search for a city
 - THEN I am presented with current and future conditions for that city and that city is added to the search history
@@ -19,7 +18,7 @@ This is the sixth Challenge homework assignment and will meet the acceptance cri
 - THEN I am again presented with current and future conditions for that city
 
 
-## Screenshot
+## Screenshot/Gif
 
 
 ## deployed link
@@ -33,6 +32,8 @@ This is the sixth Challenge homework assignment and will meet the acceptance cri
 - JavaScript
 - OpenWeather One Call API
 
-## Author
+## Author/Contributors
 
 - [Portfolio] https://rehtribution.github.io/portfolio/
+
+- Help from Reid, Alex, and Anthony
