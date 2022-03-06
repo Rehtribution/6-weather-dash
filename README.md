@@ -24,7 +24,8 @@
 ![recording](https://user-images.githubusercontent.com/92597876/145707065-ded87ce7-55e9-466d-869c-bd2168fd647c.gif)
 
 ## deployed link
-- https://rehtribution.github.io/6-weather-dash/
+
+[![GitHub-Link - ClickHere](https://img.shields.io/badge/GitHub--Link-ClickHere-blue?style=for-the-badge)](https://rehtribution.github.io/6-weather-dash/)
 
 
 ## Built With
