@@ -49,9 +49,10 @@
             <!-- current weather -->
             <div class="current">
                 <div id="temp"><span>°F</span></div>
-                <img id="weatherIcon" src="" alt="weather icon showing the current weather"></img>
-                <!--insert icon for designated weather here-->
-
+                <div class="current-icon">
+                    <!--insert icon for designated weather here-->
+                </div>
+                
                 <!-- additional current weather conditions -->
                 <div id="conditions" class="row">
                     <div id="wind"></div>
@@ -60,11 +61,12 @@
                     <!--change color depending on severity-->
                 </div>
             </div>
-
+            
             <!-- 5-day forcast in card format -->
             <section class="forecast">
                 <h3>5-Day Forecast</h3>
                 <div id="five-day-container" class="card-deck"></div>
+
             </section>
         </main>
 

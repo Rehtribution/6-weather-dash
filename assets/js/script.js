@@ -11,13 +11,12 @@ const api = {
 // Enter keycode value
 const ENTER_KEY_CODE = 13;
 
-
 //creating the search history from the search input
-//want to clear the searchbox contents after keypress
 var recentSearchHistory
 const searchbox = document.querySelector('.search-box');
 searchbox.addEventListener('keypress', setQuery);
 
+const current = document.querySelector('.current')
 
 //grabs the keycody value previously set, runs getresults then saves values to local storage and clears the input
 function setQuery(event) {
@@ -39,63 +38,87 @@ function getResults(query) {
 
 //dispays the weather info after grabbing from the api
 function displayResults(weather) {
+    // console.log(weather);
+    //current weather icon
+    const currentIcon = document.querySelector('.current-icon')
+    currentIcon.innerHTML = ''
+    const iconCode = weather.weather[0].icon
+
+    const wind = weather.wind.speed
+
     let lat = weather.coord.lat
     let lon = weather.coord.lon
     getFiveDay(lat, lon)
     var city = document.querySelector('#city');
     var temp = document.querySelector('#temp');
-    var weatherIcon = document.querySelector('#weatherIcon');
+    var weatherIcon = document.createElement('img');
     var windS = document.querySelector('#wind');
     var humidity = document.querySelector('#humidity');
-    var uvi = document.querySelector('#UV-I');
+
     city.innerHTML = `${weather.name}, ${weather.sys.country}`;
     temp.innerHTML = `${Math.round(weather.main.temp)}<span>°F</span>`;
     // weatherIcon
+    weatherIcon.setAttribute('src', '')
+    weatherIcon.setAttribute('src', `http://openweathermap.org/img/w/${iconCode}.png`)
+    currentIcon.append(weatherIcon)
 
-    windS.innerHTML = `${Math.round(weather.wind.speed)}<span>mph</span>`;
+    windS.innerHTML = `${Math.round(wind)}<span>mph</span>`;
     humidity.innerHTML = `${(weather.main.humidity)}<span>%</span>`;
-    uvi.innerHTML = `${(weather.main.uvi)}<span>#</span>`;
-    // uvi showing as undefined nan 
 }
 
 //5 day forecast grabs from base2 and displays dynamically creating cards in a card-deck
 const fiveDayContainer = document.getElementById("five-day-container")
+
 function getFiveDay(lat, lon) {
     fetch(`${api.base2}lat=${lat}&lon=${lon}&APPID=${api.key}&units=imperial`)
         .then(res => res.json())
         .then((data) => {
-            for (let i = 0; i < 5; i++) {
+            // console.log(data);
+            const futureIcon = document.querySelector('.future-icon')
+            futureIcon.innerHTML = ''
+            const iconCode = data.daily[i].weather[0].icon
+
+            //uvi parameters
+            var uvi = document.querySelector('#UV-I');
+            uvi.innerHTML = `<span>UV-Index: </span>${(data.current.uvi)}`;
+            if (data.current.uvi < 3) {
+                uvi.setAttribute('style', 'color: green')
+            } else if (data.current.uvi >= 4 && data.current.uvi < 7) {
+                uvi.setAttribute('style', 'color: orange')
+            } else {
+                uvi.setAttribute('style', 'color: red')
+            }
+
+            for (let i = 1; i < 6; i++) {
                 let card = document.createElement('div')
                 card.setAttribute('class', 'card')
-                fiveDayContainer.append(card)
 
-                let fiveDayDate = document.createElement('h3')
+                // condition icon>
+                let futureIcon = document.createElement('p')
+                // futureIcon.setAttribute('src', '')
+                futureIcon.innerHTML = `${data.daily[i].weather[0].icon}`
+
+                let fiveDayDate = document.createElement('p')
                 fiveDayDate.textContent = moment().add(i + 1, 'days').format('dddd')
-                card.append(fiveDayDate)
 
                 let fiveDayTemp = document.createElement('p')
                 fiveDayTemp.textContent = 'Temp: ' + data.daily[i].temp.day + '°F'
-                // add Math.round to round temps
-                card.append(fiveDayTemp)
 
-                // condition icon goes here >
-                var weatherIcon = document.createElement('img');
-                card.append(weatherIcon);
-
-                // let fiveDayWindS = document.createElement('p')
-                // fiveDayWindS.textContent = 'Wind: ' + weather.daily[i].wind.speed + 'mph'
-                // card.append(fiveDayWindS);
-                // showing as undefined nan / cannot read 'day'
-                // windS.innerHTML = `${Math.round(weather.wind.speed)}<span>mph</span>`;
+                let fiveDayWindS = document.createElement('p')
+                fiveDayWindS.innerHTML = 'Wind: ' + `${Math.round(data.daily[i].wind_speed)}` + 'mph'
 
                 let fiveDayHumid = document.createElement('p')
-                fiveDayHumid.innerHTML = 'Humidity: ' + data.daily[i].humidity.day + '%'
+                fiveDayHumid.innerHTML = 'Humidity: ' + data.daily[i].humidity + '%'
+
+                fiveDayContainer.append(card)
+                card.append(fiveDayDate)
+                card.append(futureIcon)
+                card.append(fiveDayTemp)
+                card.append(fiveDayWindS);
                 card.append(fiveDayHumid)
-                // nan 
             }
         })
 }
-
 
 //save searches to local storage
 function saveRecentSearches(city) {
@@ -114,7 +137,6 @@ function saveRecentSearches(city) {
 
 getSearches()
 
-
 //display prior searches in the recent-searches div as buttons
 function getSearches() {
     var data = JSON.parse(localStorage.getItem("recentSearches"));
@@ -132,23 +154,12 @@ function getSearches() {
     }
 }
 
-// this will search for the prior cities when btn is clicked. when I get it working. 
-// when clicked getting a key error or when multiple cities it is selecting whole btn-group not just individuals 
-// const btn = document.querySelector('.btn-group');
-// btn.addEventListener('click', pCity);
-
-// function pCity(event) {
-//     console.log("here")
-//     var button = event.target;
-//     if (event.target.matches("button")){
-//         city = button.textContent.trim();
-//         console.log(btn.textContent)
-//         getResults()
-//     }
-//     }
-
-
-
+// this will search for the prior cities when btn is clicked 
+$(document).on("click", ".btn", function () {
+    clearCards();
+    var listCity = $(this).text();
+    getResults(listCity);
+});
 
 //clear history button function
 function clearSearches() {
@@ -169,5 +180,3 @@ function clearCards() {
     const previousCards = document.querySelector("#five-day-container");
     previousCards.innerHTML = ""
 }
-
-//need an error handler
