@@ -75,7 +75,7 @@ function getFiveDay(lat, lon) {
         .then((data) => {
             // console.log(data);
             const futureIcon = document.querySelector('.future-icon')
-            futureIcon.innerHTML = ''
+            // futureIcon.innerHTML = ''
             const iconCode = data.daily[i].weather[0].icon
 
             //uvi parameters
