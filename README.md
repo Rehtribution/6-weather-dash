@@ -1,7 +1,7 @@
 <h1 align="center">6 Weather Dash</h1>
 
 <h2 align="center">Project Description</h2>
-6 Weather Dash is an application that wil show the weather outlook for multiple cities to allow users to plan a trip accordingly.
+6 Weather Dash is an application that shows the weather outlook for multiple cities to allow users to plan a trip accordingly.
 
 <h2 align="center">User Story</h2>
 
