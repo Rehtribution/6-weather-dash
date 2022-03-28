@@ -73,11 +73,9 @@ function getFiveDay(lat, lon) {
     fetch(`${api.base2}lat=${lat}&lon=${lon}&APPID=${api.key}&units=imperial`)
         .then(res => res.json())
         .then((data) => {
-            // console.log(data);
-            const futureIcon = document.querySelector('.future-icon')
-            // futureIcon.innerHTML = ''
-            const iconCode = data.daily[i].weather[0].icon
-
+            console.log(data);
+            
+            
             //uvi parameters
             var uvi = document.querySelector('#UV-I');
             uvi.innerHTML = `<span>UV-Index: </span>${(data.current.uvi)}`;
@@ -88,15 +86,17 @@ function getFiveDay(lat, lon) {
             } else {
                 uvi.setAttribute('style', 'color: red')
             }
-
+            
             for (let i = 1; i < 6; i++) {
                 let card = document.createElement('div')
                 card.setAttribute('class', 'card')
-
                 // condition icon>
-                let futureIcon = document.createElement('p')
-                // futureIcon.setAttribute('src', '')
-                futureIcon.innerHTML = `${data.daily[i].weather[0].icon}`
+                const iconCode = data.daily[i].weather[0].icon
+                let futureIcon = document.createElement('img')
+                futureIcon.innerHTML = ''
+                futureIcon.className = ".future-icon";
+                futureIcon.setAttribute('src', `http://openweathermap.org/img/w/${iconCode}.png`)
+
 
                 let fiveDayDate = document.createElement('p')
                 fiveDayDate.textContent = moment().add(i + 1, 'days').format('dddd')

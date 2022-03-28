@@ -136,13 +136,8 @@ main {
     align-items: center;
 }
 
-p {
-    word-break: keep-all;
-    font-size: 30px;
-    font-size: 3.5vw;
-}
-
 .card {
+    width: min-content;
     font-size: calc(1em + 1vw);
     display: flex;
     justify-content: center;
